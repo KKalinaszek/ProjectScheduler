@@ -1,5 +1,5 @@
 class Node
-    attr_accessor :value, :neighbors
+    attr_accessor :value, :neighbors, :x, :y
 
     def initialize(value)
         @value = value
@@ -7,7 +7,7 @@ class Node
     end
 
     def add_edge(neighbor)
-    @neighbors << neighbor
+        @neighbors << neighbor
     end
 end
 
@@ -19,7 +19,7 @@ class Graph
     end
 
     def add_node(value)
-    @nodes << Node.new(value)
+        @nodes << Node.new(value)
     end
 
     def is_cyclic_ut(i,visited,rec_stack)
