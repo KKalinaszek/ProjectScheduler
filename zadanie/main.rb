@@ -2,7 +2,7 @@ require_relative 'Activity'
 require_relative 'Graph'
 # require_relative 'Render'
 
-require 'ruby2d'
+# require 'ruby2d'
 
 graph = Graph.new()
 graph.read_file("tasks.txt")

@@ -1,5 +1,5 @@
 class Graph
-  attr_accessor :activities
+  attr_accessor :activities, :number
 
   def initialize()
     @activities = []
@@ -9,12 +9,13 @@ class Graph
     activities_list = []
     File.foreach(name) {
       |line|
-        activities_list.append(line.split.map(&:to_i))
+        activities_list.append(line.split)
     }
 
     #create Activity
     activities_list.each do |activity|
-      @activities.append(Activity.new(activity[0], activity[1]))
+      @activities.append(Activity.new(@number, activity[0], activity[1]))
+      @number = @number + 1
     end
 
     # #create children
@@ -28,6 +29,7 @@ class Graph
 
   def add_Activity(id, value)
     @activities << Activity.new(id, value)
+    @number = @number + 1
   end
 
   def id_find(id)

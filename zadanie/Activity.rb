@@ -13,7 +13,7 @@ class Activity
     :critical,
   )
 
-  def initialize(id, duration)
+  def initialize(id, name, duration)
     @id = id
     @duration = duration
     @earliestST = 0
@@ -34,7 +34,7 @@ class Activity
     @successors.each do |s|
       succ.append(s.id)
     end
-    puts "ID:#{@id} p=#{@duration} pred=#{pred} succ=#{succ} Es=#{@earliestST} Ef=#{@earliestEND} Ls=#{latestST} Lf=#{latestEND} crit.path?=#{@critical}"
+    puts "ID:#{@id} name= #{@name} p=#{@duration} pred=#{pred} succ=#{succ} Es=#{@earliestST} Ef=#{@earliestEND} Ls=#{latestST} Lf=#{latestEND} crit.path?=#{@critical}"
   end
 
 end
