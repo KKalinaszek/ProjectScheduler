@@ -1,6 +1,7 @@
 class Activity
   attr_accessor(
     :id,
+    :name,
     :description,
     :duration,
     :earliestST,
