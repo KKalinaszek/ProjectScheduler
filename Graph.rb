@@ -1,6 +1,6 @@
 require 'ruby2d'
 
-class Node
+class Activity
     attr_accessor :weight, :neighbors, :position
 
     def initialize(weight)
@@ -19,31 +19,31 @@ class Node
 end
 
 class Graph
-    attr_accessor :nodes
+    attr_accessor :activities
     @is_pressed = false
 
     def initialize
-        @nodes = []
+        @activities = []
     end
 
-    def add_node(weight)
-    @nodes << Node.new(weight)
+    def add_Activity(weight)
+    @activities << Activity.new(weight)
     end
 
     def draw
-        @nodes.each do |node|
+        @activities.each do |Activity|
             Circle.new(
-                x:node.position[0],
-                y:node.position[1],
+                x:Activity.position[0],
+                y:Activity.position[1],
                 radius:25,
                 sectors:32,
                 color:'red',
                 z:10
             )
 
-            node.neighbors.each do |neighbor|
+            Activity.neighbors.each do |neighbor|
                 Line.new(
-                    x1:node.position[0], y1:node.position[1],
+                    x1:Activity.position[0], y1:Activity.position[1],
                     x2:neighbor.position[0], y2:neighbor.position[1],
                     width:10,
                     color:'white',

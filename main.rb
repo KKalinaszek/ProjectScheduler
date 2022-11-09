@@ -4,21 +4,21 @@ require_relative 'Graph'
 
 graph = Graph.new
 
-graph.add_node(3)
-graph.add_node(2)
-graph.add_node(1)
+graph.add_Activity(3)
+graph.add_Activity(2)
+graph.add_Activity(1)
 
-graph.nodes[0].add_connection(graph.nodes[1])
-graph.nodes[0].add_connection(graph.nodes[2])
-graph.nodes[2].add_connection(graph.nodes[0])
+graph.activities[0].add_connection(graph.activities[1])
+graph.activities[0].add_connection(graph.activities[2])
+graph.activities[2].add_connection(graph.activities[0])
 
-# puts graph.nodes.inspect
-# graph.nodes.each { |n| puts n.inspect}
+# puts graph.activities.inspect
+# graph.activities.each { |n| puts n.inspect}
 puts 'test'
 
-graph.nodes[0].update(30,40)
-graph.nodes[1].update(20,60)
-graph.nodes[2].update(70,10)
+graph.activities[0].update(30,40)
+graph.activities[1].update(20,60)
+graph.activities[2].update(70,10)
 
 @is_pressed = false
 
@@ -40,11 +40,11 @@ end
 
 on :mouse_move do |event|
     if @is_pressed == true
-      graph.nodes.each do |node|
-        node.position[0] = event.x
-        node.position[1] = event.y
+      graph.activities.each do |Activity|
+        Activity.position[0] = event.x
+        Activity.position[1] = event.y
       end
-      # node.update(event.x,event.y)
+      # Activity.update(event.x,event.y)
     end
 end
 
