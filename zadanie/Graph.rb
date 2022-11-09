@@ -95,44 +95,43 @@ class Graph
   end
 
   def walk_list_ahead()
-    @activities[0].earliestEND =  @activities[0].earliestST + @activities[0].duration
 
-    (1..@activities.length()-1).each do |i|
-      @activities[i].predecessors.each do |activity|
-        if @activities[i].earliestST < activity.earliestEND
-          @activities[i].earliestST = activity.earliestEND
+    (0..@activities.length()-1).each do |i|
+      if @activities[i].predecessors.empty?
+        @activities[i].earliestEND = @activities[i].earliestST + @activities[i].duration
+        @activities[i].earliestST = 0
+      else
+        @activities[i].predecessors.each do |activity|
+          if @activities[i].earliestST < activity.earliestEND
+            @activities[i].earliestST = activity.earliestEND
+          end
         end
+        @activities[i].earliestEND = @activities[i].earliestST + @activities[i].duration
       end
-      @activities[i].earliestEND = @activities[i].earliestST + @activities[i].duration
     end
+    # @activities.sort_by(&:id)
   end
 
   def walk_list_back()
-    puts "#{@activities[@activities.length()-1].id} = #{@activities[@activities.length()-1].id}"
-    @activities[@activities.length()-1].latestEND = @activities[@activities.length()-1].earliestEND
-    @activities[@activities.length()-1].latestST = @activities[@activities.length()-1].latestEND - @activities[@activities.length()-1].duration
 
-    puts @activities[@activities.length()-1].write()
-
-    i = @activities.length()-2
-    puts @activities[i].write()
-
-    while i >= 0
-      @activities[i].successors.each do |activity|
-        puts "activity:"
-        activity.write()
-        if @activities[i].latestEND == 0
-          @activities[i].latestEND = activity.latestST
-        else
-          if @activities[i].latestEND > activity.latestST
-            @activities[i].latestEND = activity.latestST
-          end
+    (0..@activities.length()-1).each do |i|
+      if @activities[i].successors.empty?
+        @activities[@activities.length()-1].latestEND = @activities[@activities.length()-1].earliestEND
+        @activities[@activities.length()-1].latestST = @activities[@activities.length()-1].latestEND - @activities[@activities.length()-1].duration
+      else
+        @activities[i-1].successors.each do |activity|
+          puts "activity:"
+            activity.write()
+            if @activities[i].latestEND == 0
+              @activities[i].latestEND = activity.latestST
+            else
+              if @activities[i].latestEND > activity.latestST
+                @activities[i].latestEND = activity.latestST
+              end
+            end
         end
+        @activities[i].latestST = @activities[i].latestEND - @activities[i].duration
       end
-
-      @activities[i].latestST = @activities[i].latestEND - @activities[i].duration
-      puts "i = #{i}"
-      i = i - 1
     end
 
     @activities.sort_by(&:id)
@@ -142,9 +141,6 @@ class Graph
   def critical_path()
 
     walk_list_ahead()
-
-    @activities.sort_by(&:id)
-
     walk_list_back()
 
     puts "Critical Path:"
